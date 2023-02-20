@@ -1,0 +1,424 @@
+:root {
+    --main-colour: #00b637;
+    --main-gradient: linear-gradient(#00000000, #0000007C);
+
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: Consolas;
+
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 2rem;
+
+    margin: 0;
+    min-height: 100vh;
+
+    background-color: #111;
+    color: white;
+
+    font-weight: bold;
+    text-transform: capitalize;
+    text-shadow: 0.2rem 0.2rem 0.1rem #0000007C;
+}
+
+body::-webkit-scrollbar { background-color: #0000007C; }
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--main-colour);
+    border-radius: 4vh;
+}
+
+body section {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+input,
+button {
+    font: inherit;
+    color: inherit;
+    border: none;
+}
+
+#user {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    background-image: var(--main-gradient);
+    background-color: var(--main-colour);
+
+    border: 0.2rem solid white;
+    border-radius: 2vh;
+
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+#user input {
+    background-color: #0000007C;
+
+    border: 0.2rem solid white;
+    border-radius: 4vh;
+
+    padding: 1rem;
+
+    transition: background-color 500ms;
+}
+
+#user input::placeholder {
+    color: #0000007C;
+}
+
+#user input.invalid {
+    font-style: italic;
+    background-color: #FF00007C;
+}
+
+#user input.invalid:is(:hover, :focus) {
+    background-color: #FF00009C;
+}
+
+#user button {
+    background-color: #0000007C;
+
+    border: inherit;
+    border-radius: inherit;
+
+    padding: 1rem;
+
+    cursor: pointer;
+
+    transition: background-color 500ms;
+}
+
+#user :is(input, button):is(:hover, :focus) { background-color: #0000009C; }
+
+poll {
+    --flip-transition: 750ms;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    max-width: 50vw;
+
+    background-image: var(--main-gradient);
+    background-color: var(--main-colour);
+
+    padding: 1rem;
+    margin: 0.5rem;
+
+    border: 0.2rem solid white;
+    border-radius: 2vh;
+
+    rotate: 0 y;
+    transition: rotate var(--flip-transition);
+
+    overflow: hidden;
+}
+
+poll header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    
+    width: 100%;
+}
+
+poll header p {
+    margin: 0;
+    place-self: start center;
+    width: 100%;
+}
+
+poll ul {
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    gap: 1rem;
+
+    width: calc(100% - 2rem);
+
+    margin: 0;
+    padding: 0;
+}
+
+poll ul li {
+    --percentage: 75;
+    --percentage-offset: 3rem;
+    --check-image: url("Images/square.png");
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(auto, 2);
+    place-content: center;
+    place-items: center;
+    gap: 0.5rem;
+
+    width: 100%;
+
+    background-color: #0000007C;
+
+    border: 0.2rem solid white;
+    border-radius: 2vh;
+
+    padding: 1rem;
+
+    transition: background-color 500ms;
+
+    cursor: pointer;
+}
+
+poll ul li:is(:hover, :focus) {
+    background-color: #0000009C;
+}
+
+poll ul li .checkbox {
+    --size: 2.5rem;
+
+    width: var(--size);
+    height: var(--size);
+
+    background-image: var(--check-image);
+    background-size: cover;
+
+    grid-row: 1 / 3;
+}
+
+poll ul li p {
+    margin: 0;
+    margin-left: var(--percentage-offset);
+    place-self: center start;
+    
+    width: calc(100% - 3rem);
+
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+}
+
+poll ul li .percentage {
+    --height: 60%;
+
+    font-size: 1rem;
+
+    position: relative;
+    width: 100%;
+    height: fit-content;
+
+    grid-column: 2;
+
+    border-radius: inherit;
+}
+
+poll ul li .percentage::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: var(--percentage-offset);
+    translate: 0 -50%;
+
+    width: calc(100% - var(--percentage-offset));
+    height: var(--height);
+
+    background-color: #0000009C;
+    border-radius: inherit;
+}
+
+poll ul li .percentage::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: var(--percentage-offset);
+    translate: 0 -50%;
+
+    width: calc((100% - var(--percentage-offset)) * min(var(--percentage), 100) / 100);
+    height: calc(var(--height) * 0.9);
+
+    background-color: white;
+    border-radius: inherit;
+
+    transition: width 500ms;
+}
+
+poll .view-votes-button {
+    background-color: #0000007C;
+    border-radius: 2vh;
+    border: 0.2rem solid white;
+
+    padding: 1rem;
+
+    cursor: pointer;
+
+    transition: background-color 500ms;
+}
+
+poll .view-votes-button:is(:hover, :focus) {
+    background-color: #0000009C;
+}
+
+poll .view-votes-panel {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    background-image: inherit;
+
+    transition: opacity var(--flip-transition), visibility var(--flip-transition);
+
+    opacity: 1;
+    visibility: visible;
+    rotate: 180deg y;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+poll .view-votes-panel::-webkit-scrollbar { background-color: #0000007C; }
+
+poll .view-votes-panel::-webkit-scrollbar-thumb {
+    background-color: var(--main-colour);
+    border-radius: 4vh;
+}
+
+poll .view-votes-panel.disabled {
+    opacity: 0;
+    visibility: hidden;
+}
+
+poll.disabled { rotate: 180deg y; }
+
+poll .view-votes-panel .view-votes-close-button {
+    position: absolute;
+    right: 0;
+
+    --size: 2.5rem;
+    width: var(--size);
+    height: var(--size);
+
+    margin: 1rem;
+
+    cursor: pointer;
+    background-color: transparent;
+}
+
+poll .view-votes-panel .view-votes-close-button::after,
+poll .view-votes-panel .view-votes-close-button::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    translate: 0 -50%;
+
+    width: 100%;
+    height: 0.6rem;
+
+    border-radius: 4vh;
+
+    background-color: white;
+
+    transition: rotate 500ms;
+}
+
+poll .view-votes-panel .view-votes-close-button::after { rotate: 45deg; }
+
+poll .view-votes-panel .view-votes-close-button::before { rotate: -45deg; }
+
+poll .view-votes-panel .view-votes-close-button:is(:hover, :focus)::after { rotate: 225deg; }
+
+poll .view-votes-panel .view-votes-close-button:is(:hover, :focus)::before { rotate: 135deg; }
+
+poll .view-votes-panel .participant-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 1fr;
+    place-content: center;
+    place-items: center;
+
+    width: calc(100% - 7rem);
+    height: fit-content;
+
+    margin: 1rem;
+    padding: 1rem;
+}
+
+poll .view-votes-panel .participant-container .participant-image {
+    --size: 5rem;
+
+    font-size: xx-large;
+
+    grid-row: 1;
+    grid-column: 1;
+
+    display: flex;
+    place-content: center;
+    place-items: center;
+
+    width: var(--size);
+    height: var(--size);
+
+    background-color: #0000007C;
+    border: 0.2rem solid white;
+    border-radius: 100%;
+
+    transition: background-color 500ms;
+
+    cursor: pointer;
+}
+poll .view-votes-panel .participant-container .participant-image:is(:hover, :focus) { background-color: #0000009C; }
+
+poll .view-votes-panel .participant-container p {
+    place-self: center start;
+
+    width: 100%;
+
+    margin: 0;
+    margin-left: 1.5rem;
+    
+    grid-column: 2;
+
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+}
+poll .view-votes-panel .participant-container .participant-name { font-size: larger; }
+
+poll .view-votes-panel .participant-container .participant-item::before { content: "Item: "; }
+
+poll .view-votes-panel .participant-empty {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    text-align: center;
+
+    height: 100%;
+    
+    margin: 2rem;
+}
